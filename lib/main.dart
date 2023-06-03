@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:session_statefull/view/pages/second_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        
+
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -48,124 +47,80 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-List<String> mylist = ["Hello","World"];
+List<String> mylist = ["Hello", "World"];
 
 double myWidth = 300;
 double myheight = 400;
 Color myColor = Colors.blue;
-List<bool> myLogic = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false
+
+String dropdownvalue = 'Item 1';
+
+// List of items in our dropdown menu
+var items = [
+  'Item 1',
+  'Item 2',
+  'Item 3',
+  'Item 4',
+  'Item 5',
 ];
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // Initial Selected Value
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: Text("This is an appbar"),actions: [TextButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(),));
-      }, child: Text("Navigate"))],),
-      body: ListView.builder(
-        itemCount: 7,
-        itemBuilder: (context, index) => Dismissible(
-          movementDuration: Duration(seconds: 4),
-          direction: DismissDirection.startToEnd,
-          onDismissed: (direction){
-              if(direction == DismissDirection.endToStart){
-                print("delete");
-              }
-              else {
-                print("hello");
-              }
-          },
-          background:Container(child: Icon(Icons.delete),color: Colors.red,),
-          key: GlobalKey(),
-          child: CheckboxListTile(
-            secondary: Hero(
-              tag:'$index',
-              child: CircleAvatar(
-                child: Image.asset('assets/photo.jpg'),
-              ),
+      appBar: AppBar(
+        title: const Text("ToDo"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton(
+              // Initial Value
+              value: dropdownvalue,
+
+              // Down Arrow Icon
+              icon: const Icon(Icons.keyboard_arrow_down),
+
+              // Array list of items
+              items: [
+                DropdownMenuItem(child: Text(items[0]), value: items[0]),
+                DropdownMenuItem(child: Text(items[1]), value: items[1]),
+                DropdownMenuItem(child: Text(items[2]), value: items[2]),
+                DropdownMenuItem(child: Text(items[3]), value: items[3]),
+                DropdownMenuItem(child: Text(items[4]), value: items[4]),
+              ]
+              // After selecting the desired option,it will
+              // change button value to selected value
+              ,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalue = newValue!;
+                });
+              },
             ),
-            controlAffinity: ListTileControlAffinity.trailing,
-            subtitle: Text(mylist[index%2]),
-            title: Text("List Tile"),
-            value: myLogic[index],
-            onChanged: (variable) {
-              setState(() {
-                myLogic[index] = variable!;
-              });
-            },
-          ),
+          ],
         ),
       ),
     );
   }
-
-  // Center Example_for_Animated_Container() {
-  //   return Center(
-  //     child:
-  //         Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-  //       ElevatedButton(
-  //           child: Text("Sized Up Container"),
-  //           onPressed: () {
-  //             setState(() {
-  //               myWidth = 800;
-  //               myColor = Colors.black;
-  //             });
-  //             print('object');
-  //           }),
-  //       OutlinedButton(
-  //           child: Text("pressed me"),
-  //           onPressed: () {
-  //             setState(() {
-  //               myWidth = 400;
-  //               myColor = Colors.red;
-  //             });
-  //           }),
-  //       TextButton(
-  //           child: Text("pressed me"),
-  //           onPressed: () {
-  //             setState(() {
-  //               myLogic = !myLogic;
-  //             });
-  //           }),
-  //       AnimatedContainer(
-  //         child: Text(
-  //           "Hello World",
-  //           style: TextStyle(color: Colors.white, fontSize: 40),
-  //         ),
-  //         width: myWidth,
-  //         height: myheight,
-  //         color: myColor,
-  //         duration: Duration(milliseconds: 400),
-  //       ),
-  //       Checkbox(
-  //           value: myLogic,
-  //           onChanged: (variable) {
-  //             setState(() {
-  //               myLogic = variable!;
-  //             });
-  //           })
-  //     ]),
-  //   );
-  // }
 }
+
+// listitem(String num, Color colorcont, colortxt) {
+//   return Container(
+//     decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(40), color: colorcont),
+//     width: 150,
+//     height: 300,
+//     child: Center(
+//       child: Text(
+//         num,
+//         style: TextStyle(color: colortxt, fontSize: 50),
+//       ),
+//     ),
+//   );
+// }
+                          
+          //ListWheelScrollView(itemExtent: 250,physics: FixedExtentScrollPhysics(),perspective: 0.002, diameterRatio: 1.3,squeeze: 1.1,offAxisFraction: 0.1,
