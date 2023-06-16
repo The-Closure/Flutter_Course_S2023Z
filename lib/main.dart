@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:plan_and_go/view/component/on_boarding_text.dart';
-import 'package:plan_and_go/view/component/one_grid.dart';
-import 'package:plan_and_go/view/component/speical_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:plan_and_go/view/component/textfield.dart';
-import 'package:plan_and_go/view/component/top_text.dart';
-import 'package:plan_and_go/view/pages/homepage/home_page.dart';
-import 'package:plan_and_go/view/res/image.dart';
 import 'package:plan_and_go/view/res/string.dart';
 
-void main() {
+import 'bloc/home_bloc.dart';
+
+void main() async {
+//  await initgetit();
+// Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  HomePage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -35,8 +35,60 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: OneGrid(),
+    TextEditingController username = TextEditingController();
+
+    TextEditingController password = TextEditingController();
+    return BlocProvider(
+      create: (context) => HomeBloc(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+            body: Center(
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  myTextField(username),
+                  myTextField(password),
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<HomeBloc>().add(Login(username.text));
+                     showDialog(context: context, builder: (context) => newpage(context),);
+                      },
+                      child: Text("LogIn"))
+                ]),
+            width: 400,
+            height: 400,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  colors: [Colors.lightBlue, Colors.redAccent],
+                )),
+          ),
+        ));
+      }),
     );
   }
+}
+
+  dynamic newpage(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: Center(child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is Success) {
+                return Text(
+                  "Hello Master ",
+                  style: TextStyle(fontSize: 32),
+                );
+              } else 
+                return CircularProgressIndicator();
+              
+            },
+          )),
+        );
+      }
+    );
+  
 }

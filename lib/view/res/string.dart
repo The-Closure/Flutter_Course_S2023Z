@@ -4,7 +4,7 @@ static String STAYORGNIZED = "Stay Organized";
 
 static String APPLICATIONAME = "Plan and Go";
 
-static String SEARCH = 'search';
+static String SEARCH = 'Enter Your Data';
 
 static String TOPTEXT='Home';
 static String BOTTOMTEXTONE=" task -  ";

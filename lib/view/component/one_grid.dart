@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plan_and_go/view/component/top_text.dart';
 import 'package:plan_and_go/view/res/color.dart';
 import 'package:plan_and_go/view/res/string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../data/local_data/local_storage.dart';
 
 class OneGrid extends StatelessWidget {
   const OneGrid({super.key});
@@ -18,7 +21,7 @@ class OneGrid extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Center(child: topText("10", "5", BLACK)),
+                Center(child: topText(myMagic.get<SharedPreferences>().getString('key') ?? "10", "5", BLACK)),
                 Center(
                   child: Container(
                     width: 116,
