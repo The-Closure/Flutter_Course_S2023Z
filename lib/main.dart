@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/home_bloc.dart';
 
 void main() async {
-//  await initgetit();
+ await initgetit();
 // Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
