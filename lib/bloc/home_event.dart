@@ -5,7 +5,7 @@ abstract class HomeEvent {}
 
 
 class Login extends HomeEvent {
-  final String username;
+ final User user;
 
-  Login(this.username);
+  Login(this.user);
 }

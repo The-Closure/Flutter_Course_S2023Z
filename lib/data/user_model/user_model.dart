@@ -2,42 +2,34 @@
 import 'dart:convert';
 
 class User {
-
-
-  String usrename;
+  String username;
   String password;
-  String message;
   User({
-    required this.usrename,
+    required this.username,
     required this.password,
-    required this.message,
   });
 
   User copyWith({
-    String? usrename,
+    String? username,
     String? password,
-    String? message,
   }) {
     return User(
-      usrename: usrename ?? this.usrename,
+      username: username ?? this.username,
       password: password ?? this.password,
-      message: message ?? this.message,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'usrename': usrename,
+      'username': username,
       'password': password,
-      'message': message,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      usrename: map['usrename'] as String,
+      username: map['username'] as String,
       password: map['password'] as String,
-      message: map['message'] as String,
     );
   }
 
@@ -46,18 +38,17 @@ class User {
   factory User.fromJson(String source) => User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'User(usrename: $usrename, password: $password, message: $message)';
+  String toString() => 'User(username: $username, password: $password)';
 
   @override
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
   
     return 
-      other.usrename == usrename &&
-      other.password == password &&
-      other.message == message;
+      other.username == username &&
+      other.password == password;
   }
 
   @override
-  int get hashCode => usrename.hashCode ^ password.hashCode ^ message.hashCode;
+  int get hashCode => username.hashCode ^ password.hashCode;
 }
