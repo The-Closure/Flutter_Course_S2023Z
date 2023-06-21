@@ -29,6 +29,7 @@ sendMessage (MessageModel message)async{
   Response response =await dio.post('http://localhost:3000/message',data:message.toJson() );
 
   if (response.statusCode == 201){
+    print(response.data);
     return response.data;
   }
   else return 'Error';
